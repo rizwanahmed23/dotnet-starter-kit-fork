@@ -5,21 +5,21 @@ import type { Tenant, CreateTenantRequest, UpdateTenantRequest } from "../types/
 export function createTenantEndpoints(client: AxiosInstance) {
   return {
     list: (params?: PaginationParams) =>
-      client.get<PagedResponse<Tenant>>("/api/v1/multitenancy/tenants", { params }),
+      client.get<PagedResponse<Tenant>>("/api/v1/tenants", { params }),
 
     get: (id: string) =>
-      client.get<Tenant>(`/api/v1/multitenancy/tenants/${id}`),
+      client.get<Tenant>(`/api/v1/tenants/${id}`),
 
     create: (data: CreateTenantRequest) =>
-      client.post<string>("/api/v1/multitenancy/tenants", data),
+      client.post<string>("/api/v1/tenants", data),
 
     update: (id: string, data: UpdateTenantRequest) =>
-      client.put(`/api/v1/multitenancy/tenants/${id}`, data),
+      client.put(`/api/v1/tenants/${id}`, data),
 
     activate: (id: string) =>
-      client.post(`/api/v1/multitenancy/tenants/${id}/activate`),
+      client.post(`/api/v1/tenants/${id}/activate`),
 
     deactivate: (id: string) =>
-      client.post(`/api/v1/multitenancy/tenants/${id}/deactivate`),
+      client.post(`/api/v1/tenants/${id}/deactivate`),
   };
 }

@@ -21,7 +21,7 @@ export const authConfig: NextAuthConfig = {
           });
 
           if (credentials.tenantId) {
-            apiClient.defaults.headers.common["X-Tenant"] =
+            apiClient.defaults.headers.common["tenant"] =
               credentials.tenantId as string;
           }
 
@@ -32,9 +32,9 @@ export const authConfig: NextAuthConfig = {
             password: credentials.password as string,
           });
 
-          if (!response.data?.token) return null;
+          if (!response.data?.accessToken) return null;
 
-          const token = response.data.token;
+          const token = response.data.accessToken;
           const payload = JSON.parse(atob(token.split(".")[1]));
 
           return {

@@ -25,7 +25,7 @@ export function createApiClient(config: ApiClientConfig): AxiosInstance {
     if (config.getTenantId) {
       const tenantId = config.getTenantId();
       if (tenantId) {
-        req.headers["X-Tenant"] = tenantId;
+        req.headers["tenant"] = tenantId;
       }
     }
 

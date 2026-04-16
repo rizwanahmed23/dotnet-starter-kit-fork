@@ -31,13 +31,18 @@ var api = builder.AddProject<Projects.FSH_Starter_Api>("fsh-api")
     .WithEnvironment("CachingOptions__Redis", redisConnectionString)
     .WithEnvironment("CachingOptions__EnableSsl", "false");
 
-// Admin App (Next.js)
-builder.AddJavaScriptApp("fsh-admin", "../../clients/admin", "dev")
-    .WithNpm()
+// Admin App (Next.js) — run directly via node against Next's dev bin.
+// Avoids Windows .cmd shim issues with Aspire's DCP process spawner.
+var nodeExe = OperatingSystem.IsWindows()
+    ? Environment.ExpandEnvironmentVariables(@"%ProgramFiles%\nodejs\node.exe")
+    : "node";
+builder.AddExecutable("fsh-admin", nodeExe, "../../../clients/admin",
+        "node_modules/next/dist/bin/next", "dev", "-p", "3000")
     .WithReference(api)
     .WaitFor(api)
-    .WithHttpEndpoint(port: 3000, env: "PORT")
+    .WithHttpEndpoint(port: 3000, env: "PORT", isProxied: false)
     .WithExternalHttpEndpoints()
-    .WithEnvironment("FSH_API_URL", api.GetEndpoint("http"));
+    .WithEnvironment("FSH_API_URL", api.GetEndpoint("https"))
+    .WithEnvironment("NEXT_PUBLIC_FSH_API_URL", api.GetEndpoint("https"));
 
 await builder.Build().RunAsync();

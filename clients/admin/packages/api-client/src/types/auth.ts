@@ -4,12 +4,13 @@ export interface TokenRequest {
 }
 
 export interface TokenResponse {
-  token: string;
+  accessToken: string;
   refreshToken: string;
-  refreshTokenExpiryTime: string;
+  refreshTokenExpiresAt: string;
+  accessTokenExpiresAt: string;
 }
 
 export interface RefreshTokenRequest {
-  token: string;
+  accessToken: string;
   refreshToken: string;
 }

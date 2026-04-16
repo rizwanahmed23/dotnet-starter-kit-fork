@@ -9,6 +9,7 @@ export function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("admin@root.com");
   const [password, setPassword] = useState("123Pa$$word!");
+  const [tenantId, setTenantId] = useState("root");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,6 +23,7 @@ export function LoginForm() {
       const result = await signIn("credentials", {
         email,
         password,
+        tenantId,
         redirect: false,
       });
 
@@ -69,6 +71,20 @@ export function LoginForm() {
               {error}
             </div>
           )}
+
+          <div>
+            <label className="mb-1.5 block text-[13px] font-medium text-zinc-700 dark:text-zinc-300">
+              Tenant
+            </label>
+            <input
+              type="text"
+              value={tenantId}
+              onChange={(e) => setTenantId(e.target.value)}
+              placeholder="root"
+              required
+              className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-[14px] text-zinc-900 outline-none transition-all placeholder:text-zinc-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-emerald-500"
+            />
+          </div>
 
           <div>
             <label className="mb-1.5 block text-[13px] font-medium text-zinc-700 dark:text-zinc-300">

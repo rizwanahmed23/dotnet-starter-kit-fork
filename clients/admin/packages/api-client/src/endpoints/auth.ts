@@ -4,9 +4,9 @@ import type { TokenRequest, TokenResponse, RefreshTokenRequest } from "../types/
 export function createAuthEndpoints(client: AxiosInstance) {
   return {
     getToken: (data: TokenRequest) =>
-      client.post<TokenResponse>("/api/v1/identity/tokens", data),
+      client.post<TokenResponse>("/api/v1/identity/token/issue", data),
 
     refreshToken: (data: RefreshTokenRequest) =>
-      client.post<TokenResponse>("/api/v1/identity/tokens/refresh", data),
+      client.post<TokenResponse>("/api/v1/identity/token/refresh", data),
   };
 }

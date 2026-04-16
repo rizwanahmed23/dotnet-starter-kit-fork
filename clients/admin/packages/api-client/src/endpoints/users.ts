@@ -6,7 +6,7 @@ import type { UserRole } from "../types/role";
 export function createUserEndpoints(client: AxiosInstance) {
   return {
     list: (params?: PaginationParams) =>
-      client.get<PagedResponse<User>>("/api/v1/identity/users", { params }),
+      client.get<PagedResponse<User>>("/api/v1/identity/users/search", { params }),
 
     get: (id: string) =>
       client.get<User>(`/api/v1/identity/users/${id}`),
